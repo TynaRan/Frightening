@@ -29,6 +29,8 @@ function shared.manager.EntityManager:run()
             if self.MinMaxToggle then
                 wait(math.random(self.minDelay, self.maxDelay))
             else
+                self.minDelay = nil
+                self.maxDelay = nil
                 wait(self.waitTime)
             end
             
