@@ -1,26 +1,3 @@
--- Editors Sound.lua
-shared.SoundLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaoFenHG/lol/refs/heads/main/EditorsSound.lua"))()
-
-local function RandomPlaySound(soundID, soundName, parent)
-    -- 初始化音频实例
-    local soundInstance = SoundLib.CreateSound{
-        Url = soundID,
-        Name = soundName,
-        Parent = parent
-    }
-    
-    -- 循环随机数抽取
-    while true do
-        local targetNumber = math.random(1, 100) 
-        local randomNum = math.random(1, 100) 
-
-        if randomNum == targetNumber then
-            soundInstance:Play()
-        end
-        
-        wait(1.9555) 
-    end
-end
 local TextChatService = game:GetService("TextChatService")
 
 local function isWhitelisted(username)
@@ -38,7 +15,7 @@ TextChatService.OnIncomingMessage = function(msg)
     if msg.TextSource then
         local username = msg.TextSource.Name
         if isWhitelisted(username) then
-            p.PrefixText = "<font color='#0000FF'>[Source code Owner]</font> " .. msg.PrefixText
+            p.PrefixText = "<font color='#0000FF'>[Editors Owner]</font> " .. msg.PrefixText
         else
             p.PrefixText = "<font color='#FFFFFF'>[Player]</font> " .. msg.PrefixText
         end
@@ -53,9 +30,9 @@ TextChatService.OnIncomingMessage = function(msg)
     return p
 end
 
-local libraryUrl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/C.lua"
+local libraryUrl = "https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/C.lua.txt"
 loadstring(game:HttpGet(libraryUrl))()
-local libraryUrl2 = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Manger.lua"
+local libraryUrl2 = "https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/manger.lua"
 loadstring(game:HttpGet(libraryUrl2))()
 local function GetGitSoundID(GithubSnd, SoundName)
     SoundName = tostring(SoundName)
@@ -69,21 +46,6 @@ local SelfModules = {
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
 }
 
-local NewSeek = GetGitSoundID("https://github.com/XiaoFenHG/DOORS/blob/main/SVID_20241209_230340_1_230807_track0_230807.mp3?raw=true", "NewSeek")
-
--- 找到旧的音频对象
-local seekMusic = game.ReplicatedStorage:FindFirstChild("FloorReplicated"):FindFirstChild("SeekMusic")
-
--- 创建新的音频对象
-local newSound = Instance.new("Sound")
-newSound.SoundId = NewSeek
-newSound.Volume = 2.2
-newSound.Looped = false
-newSound.Parent = seekMusic.Parent
-
--- 替换旧的音频对象
-seekMusic:Destroy()
-newSound.Name = "SeekMusic"
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -258,69 +220,86 @@ local function title(nah)
     wait(9)
     intro:Destroy()
 end
-
--- 调用示例
-shared.manager.EnityManager({
+local e1 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/M.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 605, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 605,
+    MinMaxToggle = false
 })
 
-shared.manager.EnityManager({
+e1:run()
+
+local e2 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/hunger.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 455, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 455,
+    MinMaxToggle = false
 })
 
-shared.manager.EnityManager({
+e2:run()
+
+local e3 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/sto.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 125, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 125,
+    MinMaxToggle = false
 })
-shared.manager.EnityManager({
+
+e3:run()
+
+local e4 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A60.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 925, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 925,
+    MinMaxToggle = false
 })
 
-shared.manager.EnityManager({
+e4:run()
+
+local e5 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/depth.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 755, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 755,
+    MinMaxToggle = false
 })
-shared.manager.EnityManager({
+
+e5:run()
+
+local e6 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Surge.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 625, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 625,
+    MinMaxToggle = false
 })
 
-shared.manager.EnityManager({
+e6:run()
+
+local e7 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A200.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 666, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 666,
+    MinMaxToggle = false
 })
 
-shared.manager.EnityManager({
+e7:run()
+
+local e8 = shared.manager.EntityManager:new({
     scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Silence.lua",
-    minDelay = nil, 
-    maxDelay = nil, 
-    waitTime = 99999999999, 
-    MinMaxToggle = false, 
+    minDelay = nil,
+    maxDelay = nil,
+    waitTime = 99999999999,
+    MinMaxToggle = false
 })
+
+e8:run()
+
 -- Change eyes
 local function updateEyes()
     for _, eye in pairs(workspace:GetChildren()) do
