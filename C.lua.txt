@@ -1,0 +1,12 @@
+-- healthCheckLib.lua
+
+shared.healthCheckLib = {}
+
+function shared.healthCheckLib.checkHealth(player)
+    local health = player.Character and player.Character:FindFirstChildOfClass("Humanoid") and player.Character:FindFirstChildOfClass("Humanoid").Health
+    if health and health > 0 then
+        return true
+    else
+        return false
+    end
+end

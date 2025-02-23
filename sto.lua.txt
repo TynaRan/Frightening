@@ -1,0 +1,96 @@
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.CoreGui
+screenGui.Enabled = false
+-- Create a black background frame
+local backgroundFrame = Instance.new("Frame")
+backgroundFrame.Size = UDim2.new(1, 0, 1, 0) -- Fullscreen
+backgroundFrame.BackgroundColor3 = Color3.new(0, 0, 0) -- Black color
+backgroundFrame.Parent = screenGui
+
+-- Create an ImageLabel in the center of the screen
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(0.3, 0, 0.3, 0) -- Set size as a square
+imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center of the screen
+imageLabel.AnchorPoint = Vector2.new(0.5, 0.5) -- Center the ImageLabel
+imageLabel.BackgroundTransparency = 1 -- Transparent background
+imageLabel.Image = "rbxassetid://18148044143" -- Set the image asset
+imageLabel.Parent = backgroundFrame
+
+-- Force the ImageLabel size to be square
+local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+aspectRatioConstraint.AspectRatio = 1 -- Force a 1:1 aspect ratio
+aspectRatioConstraint.Parent = imageLabel
+
+-- Create a sound effect object
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://7220020324" -- Slender Man Static sound ID
+sound.Volume = 1
+sound.Looped = false
+sound.Parent = workspace
+
+-- Function to add blur effect
+local function addBlurEffect()
+    local blur = Instance.new("BlurEffect")
+    blur.Size = 24
+    blur.Parent = game.Lighting
+    return blur
+end
+
+-- Function to remove the blur effect
+local function removeBlurEffect(blur)
+    blur:Destroy()
+end
+
+-- Function to check player movement
+local function checkPlayerMovement()
+    local connection
+    connection = player.Character.Humanoid.Running:Connect(function(speed)
+        if speed > 0 then
+            -- Player moved, take damage and set death cause
+            player.Character.Humanoid:TakeDamage(100)
+            game:GetService("ReplicatedStorage").GameStats["Player_" .. player.Name].Total.DeathCause.Value = "noise"
+            cleanUpUIAndSound(connection)
+        end
+    end)
+end
+
+-- Function to remove UI, stop sound, and disconnect movement check
+local function cleanUpUIAndSound(connection)
+    screenGui:Destroy()
+    sound:Stop()
+    if connection then
+        connection:Disconnect()
+    end
+end
+
+-- Main sequence
+local function mainSequence()
+    -- Add blur effect
+    local blur = addBlurEffect()
+
+    -- Wait for 2 seconds then remove blur and display UI
+    wait(4)
+    removeBlurEffect(blur)
+
+    -- Play the sound effect and display UI
+    sound:Play()
+    screenGui.Enabled = true
+
+    -- Check for player movement
+    local connection = player.Character.Humanoid.Running:Connect(function(speed)
+        if speed > 0 then
+            -- Player moved, take damage and set death cause
+            player.Character.Humanoid:TakeDamage(100)
+            game:GetService("ReplicatedStorage").GameStats["Player_" .. player.Name].Total.DeathCause.Value = "noise"
+            cleanUpUIAndSound(connection)
+        end
+    end)
+
+    -- Wait for 1.905 seconds then clean up UI, sound, and movement check
+    wait(1.905)
+    cleanUpUIAndSound(connection)
+end
+
+-- Start the main sequence
+mainSequence()

@@ -1,0 +1,93 @@
+local function GetGitSoundID(GithubSnd, SoundName)
+    SoundName = tostring(SoundName)
+    local url = GithubSnd
+    FileName = SoundName
+    writefile("customObject_Sound_" .. FileName .. ".mp3", game:HttpGet(url))
+    return (getcustomasset or getsynasset)("customObject_Sound_" .. FileName .. ".mp3")
+end
+
+local SelfModules = {
+    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
+}
+
+local NewSeek = GetGitSoundID("https://github.com/XiaoFenHG/Frightening/blob/main/roblox-doors-%5Bshadow%5D-audio-made-with-Voicemod.mp3?raw=true", "silence_ambience")
+
+local sound = Instance.new("Sound")
+sound.SoundId = NewSeek
+sound.Volume = 2.2
+sound.Looped = false
+sound.Parent = workspace
+
+local reverb = Instance.new("ReverbSoundEffect")
+reverb.DecayTime = 2.0
+reverb.Density = 1.0
+reverb.Diffusion = 0.5
+reverb.DryLevel = 0.0
+reverb.WetLevel = -6.0
+reverb.Enabled = true
+reverb.Parent = sound
+
+sound:Play()
+
+local frostbiteModel = Instance.new("Part")
+frostbiteModel.Size = Vector3.new(4, 4, 4)
+frostbiteModel.Anchored = true
+frostbiteModel.Transparency = 1
+frostbiteModel.CanCollide = false
+frostbiteModel.Parent = Workspace
+
+local billboardGui = Instance.new("BillboardGui")
+billboardGui.Size = UDim2.new(4, 0, 4, 0)
+billboardGui.AlwaysOnTop = false
+billboardGui.Parent = frostbiteModel
+
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(1, 0, 1, 0)
+imageLabel.Image = "rbxassetid://86459333191641"
+imageLabel.BackgroundTransparency = 1
+imageLabel.Parent = billboardGui
+
+local currentLoadedRoom = Workspace.CurrentRooms[game:GetService("ReplicatedStorage").GameData.LatestRoom.Value]
+local nodes = currentLoadedRoom:FindFirstChild("Nodes")
+
+if nodes and #nodes:GetChildren() > 0 then
+    local num = math.floor(#nodes:GetChildren() / 2)
+    local targetPosition = (nodes:GetChildren()[num]) and nodes[num].CFrame or currentLoadedRoom.CFrame
+    frostbiteModel.CFrame = targetPosition + Vector3.new(0, 11, 0)
+else
+    local roomCenter = currentLoadedRoom:FindFirstChild("Base") or currentLoadedRoom:FindFirstChildWhichIsA("Part")
+    if roomCenter then
+        frostbiteModel.CFrame = roomCenter.CFrame + Vector3.new(0, 11, 0)
+    else
+        frostbiteModel.CFrame = CFrame.new(0, 11, 0)
+    end
+end
+
+game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:WaitForChild("Assets").Light_Fixtures:Destroy()
+
+local reduceHealthLoop = coroutine.create(function()
+    while true do
+        wait(2.25)
+        local player = game.Players.LocalPlayer
+        if player and player.Character and player.Character:FindFirstChild("Humanoid") then
+            player.Character.Humanoid.Health = player.Character.Humanoid.Health - 5
+        end
+    end
+end)
+
+coroutine.resume(reduceHealthLoop)
+
+local function onRoomChanged(v)
+    if reduceHealthLoop then
+        coroutine.close(reduceHealthLoop)
+        reduceHealthLoop = nil
+    end
+    
+    for i = 1, 100 do
+        billboardGui.StudsOffset = Vector3.new(0, i * -0.1, 0)
+        wait(0.01)
+    end
+    billboardGui:Destroy()
+end
+
+game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(onRoomChanged)

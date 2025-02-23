@@ -1,0 +1,118 @@
+local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Spawn"
+	cue2.SoundId = "rbxassetid://3359047385"
+	cue2.Volume = 1
+	cue2.PlaybackSpeed = 1
+	cue2:Play()
+
+wait(1)
+---====== Define spawner ======---
+ 
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V1/Source.lua"))()
+ 
+---====== Create entity ======---
+ 
+local entity = Spawner.createEntity({
+    CustomName = "Surge",
+    Model = "rbxassetid://13404145962",
+    Speed = 450,
+    MoveDelay = 5,
+    HeightOffset = 0,
+    CanKill = true,
+    KillRange = 50,
+    SpawnInFront = true,
+    ShatterLights = true,
+    FlickerLights = {
+        Enabled = false,
+        Duration = 0
+    },
+    Cycles = {
+        Min = 3,
+        Max = 3,
+        Delay = 2
+    },
+    CamShake = {
+        Enabled = true,
+        Values = {1.5, 20, 0.1, 1},
+        Range = 100
+    },
+    ResistCrucifix = false,
+    BreakCrucifix = true,
+    DeathMessage = {"You died to Surge", "It appears at 57 door", "He will come back a couple of times, so hide until not safe..."},
+    IsCuriousLight = false
+})
+ 
+---====== Debug ======---
+ 
+entity.Debug.OnEntitySpawned = function()
+    print("Entity has spawned")
+end
+ 
+entity.Debug.OnEntityDespawned = function()
+    print("Entity has despawned")
+end
+ 
+entity.Debug.OnEntityStartMoving = function()
+    print("Entity started moving")
+end
+ 
+entity.Debug.OnEntityFinishedRebound = function()
+    print("Entity finished rebound")
+end
+ 
+entity.Debug.OnEntityEnteredRoom = function(room)
+    print("Entity entered room:", room)
+end
+ 
+entity.Debug.OnLookAtEntity = function()
+    print("Player looking at entity")
+end
+ 
+entity.Debug.OnDeath = function()
+    print("Player has died")
+local jumpscare = Instance.new("Sound")
+	jumpscare.Parent = game.Workspace:WaitForChild("Surge")
+	jumpscare.Name = "Jumpscare"
+	jumpscare.SoundId = "rbxassetid://6363401101"
+	jumpscare.Volume = 1
+	jumpscare.PlaybackSpeed = 1
+	jumpscare:Play()
+wait(0.001)
+local func, setupval, getinfo, typeof, getgc, next = nil, debug.setupvalue or setupvalue, debug.getinfo or getinfo, typeof, getgc, next
+ 
+for i,v in next, getgc(false) do
+    if typeof(v) == "function" then
+        local info = getinfo(v)
+        if info.currentline == 54 and info.nups == 2 and info.is_vararg == 0 then
+            func = v
+            break
+        end
+    end
+end
+ 
+local function DeathHint(hints, type: string)
+    setupval(func, 1, hints)
+    if type ~= nil then
+        setupval(func, 2, type)
+    end
+end
+ 
+DeathHint({
+    "You died to Surge",
+    "It appear at 57 door",
+    "He will come back several times, so hide until not safe..."
+}, "Blue") -- "Blue" or "Yellow"
+end
+ 
+--[[
+    NOTE: By overwriting 'OnUseCrucifix', the default crucifixion will be ignored and this function will be called instead
+ 
+    entity.Debug.OnUseCrucifix = function()
+        print("Custom crucifixion script here")
+    end
+]]--
+ 
+---====== Run entity ======---
+ 
+Spawner.runEntity(entity)
