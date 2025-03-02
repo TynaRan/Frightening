@@ -291,10 +291,10 @@ local function displayText(message)
     textLabel.Text = message
     textLabel.Font = Enum.Font.Jura
     textLabel.TextSize = 40
-    textLabel.TextColor3 = Color3.fromRGB(255, 105, 180)
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     textLabel.BackgroundTransparency = 1
     textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)
-    textLabel.Position = UDim2.new(0.25, 0, 0.6, 0)
+    textLabel.Position = UDim2.new(0.25, 0, 0.7, 0)
     textLabel.Parent = screenGui
 
     wait(3)
@@ -455,6 +455,49 @@ wait(1)
 
 game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("Windows:Q 丨 Mobile:White Button")
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+
+local function displayText(message)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "MessageGui"
+    screenGui.IgnoreGuiInset = true
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = message
+    textLabel.Font = Enum.Font.Jura
+    textLabel.TextSize = 40
+    textLabel.TextColor3 = Color3.fromRGB(255, 105, 180)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)
+    textLabel.Position = UDim2.new(0.25, 0, 0.6, 0)
+    textLabel.Parent = screenGui
+
+    wait(3)
+    screenGui:Destroy()
+end
+
+local function displayWelcomeText()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "WelcomeGui"
+    screenGui.IgnoreGuiInset = true
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = "Welcome to Frightening Mode (made BY Bad Darkness)"
+    textLabel.Font = Enum.Font.Jura
+    textLabel.TextSize = 40
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)
+    textLabel.Position = UDim2.new(0.25, 0, 0.8, 0)
+    textLabel.Parent = screenGui
+
+    wait(5)
+    screenGui:Destroy()
+end
+displayWelcomeText()
 
 local start = "The Nightmare Frightening"
 title(start)
