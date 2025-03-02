@@ -231,14 +231,13 @@ local function createCoroutine(scriptUrl, minDelay)
     end)()
 end
 
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/M.lua", 605)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/hunger.lua", 455)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/sto.lua", 125)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A60.lua", 925)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/depth.lua", 755)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Surge.lua", 625)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A200.lua", 666)
-createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Silence.lua", 99999999999)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/M.lua.txt", 605)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/hunger.lua.txt", 455)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/sto.lua.txt", 125)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/A60.lua.txt", 925)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/Surge.lua.txt", 625)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/A200.lua.txt", 666)
+createCoroutine("https://raw.githubusercontent.com/TynaRan/Frightening/refs/heads/main/Silence.lua.txt", 99999999999)
 -- Change eyes
 local function updateEyes()
     for _, eye in pairs(workspace:GetChildren()) do
