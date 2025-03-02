@@ -262,9 +262,62 @@ local function updateEyes()
         end
     end
 end
--- AddReverb.lua
+local function addFogToPlayer()
+    local blur = Instance.new("BlurEffect")
+    blur.Size = 15
+    blur.Parent = game:GetService("Lighting")
 
--- AddReverb.lua
+    local fog = Instance.new("Fog")
+    fog.Density = 0.5
+    fog.Offset = 0
+    fog.Parent = game:GetService("Lighting")
+end
+
+local function removeFogFromPlayer()
+    for _, effect in ipairs(game:GetService("Lighting"):GetChildren()) do
+        if effect:IsA("BlurEffect") or effect:IsA("Atmosphere") then
+            effect:Destroy()
+        end
+    end
+end
+
+local function displayText(message)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "Dex ui"
+    screenGui.IgnoreGuiInset = true
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = message
+    textLabel.Font = Enum.Font.Jura
+    textLabel.TextSize = 40
+    textLabel.TextColor3 = Color3.fromRGB(255, 105, 180)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)
+    textLabel.Position = UDim2.new(0.25, 0, 0.6, 0)
+    textLabel.Parent = screenGui
+
+    wait(3)
+    screenGui:Destroy()
+end
+
+local function checkRooms()
+    local room50 = workspace.CurrentRooms:FindFirstChild("50")
+    local room52 = workspace.CurrentRooms:FindFirstChild("53")
+
+    if room50 then
+        addFogToPlayer()
+        displayText("Why? I feel like I'm going blind")
+    elseif room52 then
+        removeFogFromPlayer()
+        displayText("What just happened???")
+    end
+end
+
+workspace.ChildAdded:Connect(function(child)
+    checkRooms()
+end)
 
 local function addReverbToCurrentRooms()
     local currentRooms = workspace:FindFirstChild("CurrentRooms")
