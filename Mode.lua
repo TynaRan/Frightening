@@ -220,86 +220,25 @@ local function title(nah)
     wait(9)
     intro:Destroy()
 end
-local e1 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/M.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 605,
-    MinMaxToggle = false
-})
+local function createCoroutine(scriptUrl, minDelay)
+    coroutine.wrap(function()
+        while true do
+            wait(minDelay)
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+            wait(1)
+            loadstring(game:HttpGet(scriptUrl))()
+        end
+    end)()
+end
 
-e1:run()
-
-local e2 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/hunger.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 455,
-    MinMaxToggle = false
-})
-
-e2:run()
-
-local e3 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/sto.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 125,
-    MinMaxToggle = false
-})
-
-e3:run()
-
-local e4 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A60.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 925,
-    MinMaxToggle = false
-})
-
-e4:run()
-
-local e5 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/depth.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 755,
-    MinMaxToggle = false
-})
-
-e5:run()
-
-local e6 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Surge.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 625,
-    MinMaxToggle = false
-})
-
-e6:run()
-
-local e7 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A200.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 666,
-    MinMaxToggle = false
-})
-
-e7:run()
-
-local e8 = shared.manager.EntityManager:new({
-    scripturl = "https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Silence.lua",
-    minDelay = nil,
-    maxDelay = nil,
-    waitTime = 99999999999,
-    MinMaxToggle = false
-})
-
-e8:run()
-
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/M.lua", 605)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/hunger.lua", 455)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/sto.lua", 125)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A60.lua", 925)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/depth.lua", 755)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Surge.lua", 625)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/A200.lua", 666)
+createCoroutine("https://raw.githubusercontent.com/XiaoFenHG/Frightening/refs/heads/main/Silence.lua", 99999999999)
 -- Change eyes
 local function updateEyes()
     for _, eye in pairs(workspace:GetChildren()) do
@@ -454,7 +393,7 @@ workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Parts.D
     end
 end)()
 
-game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("Frightening Mode is Loaded (v2) open door.")
+game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("Frightening Mode is Loaded (v3) open door.")
 game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("The Mode Made By Nys195(Roblox user) ")
 wait(2)
 
@@ -465,7 +404,7 @@ wait(1)
 game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("Windows:Q 丨 Mobile:White Button")
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
 
-local start = "Darkness Frightens Nightmare"
+local start = "The Nightmare Frightening"
 title(start)
 
 local cue2 = Instance.new("Sound")
