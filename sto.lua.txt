@@ -26,14 +26,12 @@ sound.Volume = 1
 sound.Looped = false
 sound.Parent = workspace
 
-local soundService = game:GetService("SoundService")
-
 local reverbEffect = Instance.new("ReverbSoundEffect")
 reverbEffect.DecayTime = 2.0
 reverbEffect.Density = 0.8
 reverbEffect.DryLevel = 0.5
 reverbEffect.WetLevel = 0.3
-reverbEffect.Parent = soundService
+reverbEffect.Parent = sound
 
 sound:Play()
 
