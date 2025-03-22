@@ -20,20 +20,6 @@ local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 aspectRatioConstraint.AspectRatio = 1
 aspectRatioConstraint.Parent = imageLabel
 
-local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://7220020324"
-sound.Volume = 1
-sound.Looped = false
-sound.Parent = workspace
-
-local reverbEffect = Instance.new("ReverbSoundEffect")
-reverbEffect.DecayTime = 2.0
-reverbEffect.Density = 0.8
-reverbEffect.DryLevel = 0.5
-reverbEffect.WetLevel = 0.3
-reverbEffect.Parent = sound
-
-sound:Play()
 
 local function addBlurEffect()
     local blur = Instance.new("BlurEffect")
@@ -71,6 +57,21 @@ local function mainSequence()
     removeBlurEffect(blur)
     sound:Play()
     screenGui.Enabled = true
+
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://7220020324"
+    sound.Volume = 1
+    sound.Looped = false
+    sound.Parent = workspace
+
+    local reverbEffect = Instance.new("ReverbSoundEffect")
+    reverbEffect.DecayTime = 2.0
+    reverbEffect.Density = 0.8
+    reverbEffect.DryLevel = 0.5
+    reverbEffect.WetLevel = 0.3
+    reverbEffect.Parent = sound
+
+    sound:Play()
 
     local connection = player.Character.Humanoid.Running:Connect(function(speed)
         if speed > 0 then
