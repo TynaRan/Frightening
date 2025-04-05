@@ -3005,25 +3005,22 @@ a:AddToggle('Automatic Fuse', {
         end
     end
 })
-local running = false
 
 a:AddToggle('proximity_modifier', {
     Text = 'Modifier ProximityPrompt',
     Default = false,
     Tooltip = 'Adjust all ProximityPrompt settings',
     Callback = function(v)
-        running = v  
-        
-        if running then
-            workspace.ChildAdded:Connect(function(obj)
-                if obj:IsA("ProximityPrompt") then
-                    task.spawn(function()
-                        while running do
+        if v then
+            task.spawn(function()
+                while true do
+                    for _, obj in ipairs(workspace:GetDescendants()) do
+                        if obj:IsA("ProximityPrompt") then
                             obj.MaxActivationDistance = 15
                             obj.HoldDuration = 0
-                            wait(5)
                         end
-                    end)
+                    end
+                    wait(0.3)
                 end
             end)
         end
